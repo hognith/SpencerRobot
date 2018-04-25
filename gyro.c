@@ -715,4 +715,7 @@ void on_mode_release()
 // Egils Gull
 // Egild Sull
 //Hogni ull
+<<<<<<< HEAD
+>>>>>>> d9b86a4f2edff248396f3f89c7c4cf447d3b7737
+=======
 >>>>>>> d9b86a4f2edff248396f3f89c7c4cf447d3b7737

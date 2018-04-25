@@ -16,6 +16,7 @@
 #include <math.h> // for M_PI
 #include <roboticscape.h>
 #include "gyro.h"
+<<<<<<< HEAD
 /**
  * NOVICE: Drive rate and turn rate are limited to make driving easier.
  * ADVANCED: Faster drive and turn rate for more fun.
@@ -707,3 +708,11 @@ void on_mode_release()
     rc_led_blink(RC_LED_GREEN,5,1);
     return;
 }
+=======
+
+
+
+// Egils Gull
+// Egild Sull
+//Hogni ull
+>>>>>>> d9b86a4f2edff248396f3f89c7c4cf447d3b7737

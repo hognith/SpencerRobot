@@ -38,7 +38,7 @@ int get_ultrasonic_value()
 	//rc_i2c_write_byte(I2C_BUS, COMMAND_REGISTER, RANGE_LOW_BYTE);
 	a = rc_i2c_read_byte(I2C_BUS, RANGE_HIGH_BYTE, data_high);
 	b = rc_i2c_read_byte(I2C_BUS, RANGE_LOW_BYTE, data_low);
-	int rc_i2c_close(I2C_BUS);
+	rc_i2c_close(I2C_BUS);
 
 	range = &data_hig;
 	range =(range << 8)|&data_low;

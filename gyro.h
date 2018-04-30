@@ -14,10 +14,10 @@
 
 // Structural properties of eduMiP
 #define CAPE_MOUNT_ANGLE	0.49 // increase if mip tends to roll forward
-#define GEARBOX			35.577
-#define ENCODER_RES		60
-#define WHEEL_RADIUS_M		0.034
-#define TRACK_WIDTH_M		0.035
+#define GEARBOX			100.37	// samkvæmt datasheet
+#define ENCODER_RES		48 // 12 raufar * 4
+#define WHEEL_RADIUS_M		0.021
+#define TRACK_WIDTH_M		0.142
 #define V_NOMINAL		7.4
 
 /*

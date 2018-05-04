@@ -13,7 +13,7 @@
 * drive_mode_t
 *
 * NOVICE: Drive rate and turn rate are limited to make driving easier.
-* ADVANCED: Faster drive and turn rate for more fun.
+* ADVANCED: Faster drive and turn rate for more fun. FUUNNNNnnnn
 *******************************************************************************/
 typedef enum drive_mode_t{
 	NOVICE,

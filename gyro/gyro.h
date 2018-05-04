@@ -11,7 +11,7 @@
 #define DT 0.01			// 1/sample_rate
 
 // Structural properties of eduMiP
-#define CAPE_MOUNT_ANGLE		1.575 // increase if mip tends to roll forward
+#define CAPE_MOUNT_ANGLE		-0.0364 // increase if mip tends to roll forward
 #define GEARBOX 				100.37
 #define ENCODER_RES				48
 #define WHEEL_RADIUS_M			0.021
@@ -33,6 +33,7 @@
 #define THETA_REF_MAX			0.37
 */
 
+
 // // inner loop controller 100hz new
 #define 	D1_GAIN					1.05
 #define 	D1_ORDER				2
@@ -46,20 +47,21 @@
 #define		D2_ORDER				2
 #define 	D2_NUM					{0.18856,  -0.37209,  0.18354}
 #define 	D2_DEN					{1.00000,  -1.86046,   0.86046}
-#define 	THETA_REF_MAX			0.33
+#define 	THETA_REF_MAX			0.07
+
 
 // steering controller
-#define D3_KP					1.0
-#define D3_KI					0.3
-#define D3_KD					0.05
-#define STEERING_INPUT_MAX		0.5
+#define D3_KP					90
+#define D3_KI					30
+#define D3_KD					10
+#define STEERING_INPUT_MAX		1
 
 // electrical hookups
-#define MOTOR_CHANNEL_L			3
+#define MOTOR_CHANNEL_L			1
 #define MOTOR_CHANNEL_R			2
 #define MOTOR_POLARITY_L		1
-#define MOTOR_POLARITY_R		-1
-#define ENCODER_CHANNEL_L		3
+#define MOTOR_POLARITY_R		1
+#define ENCODER_CHANNEL_L		1
 #define ENCODER_CHANNEL_R		2
 #define ENCODER_POLARITY_L		1
 #define ENCODER_POLARITY_R		-1
@@ -83,11 +85,11 @@
 #define PRINTF_HZ				50
 
 // other
-#define TIP_ANGLE				0.85
-#define START_ANGLE				1.575
-#define START_DELAY				0.4
+#define TIP_ANGLE				0.45
+#define START_ANGLE				0.20
+#define START_DELAY				0.2
 #define PICKUP_DETECTION_TIME	0.6
 #define ENABLE_POSITION_HOLD	1
-#define SOFT_START_SEC			0.7
+#define SOFT_START_SEC			0.01
 
 #endif	//BALANCE_CONFIG

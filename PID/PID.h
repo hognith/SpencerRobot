@@ -3,7 +3,7 @@
 
 #define SAMPLE_RATE_HZ 100	// main filter and control loop speed
 #define DT 0.01			// 1/sample_rate
-#define cape_mount_angle -0.037
+#define cape_mount_angle -0.009 //0.037
 
 // PID
 #define KP					13.0 //10.0

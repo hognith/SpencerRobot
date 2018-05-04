@@ -11,7 +11,7 @@ rc_imu_data_t imu_data;
 
 float theta;
 float d_u;
-float setpoint = 0;
+float setpoint = 0.0;
 
 
 int main(){
@@ -140,6 +140,7 @@ void* printf_loop(void* ptr){
 			
 			fflush(stdout);
 		}
+
 		rc_usleep(1000000 / PRINTF_HZ);
 	}
 	return NULL;

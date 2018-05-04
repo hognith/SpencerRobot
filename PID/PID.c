@@ -5,6 +5,7 @@
 
 void balance_controller();
 void* printf_loop(void* ptr);
+void* scanf_loop(void* ptr, char* input);
 
 rc_filter_t D1;
 rc_imu_data_t imu_data;
@@ -38,8 +39,10 @@ int main(){
 	// if it was started as a background process then don't bother
 	if(isatty(fileno(stdout))){
 		pthread_t  printf_thread;
-		
 		pthread_create(&printf_thread, NULL, printf_loop, (void*) NULL);
+
+		pthread_t scanf_thread;
+		pthread_create(&scanf_thread, NULL, scanf_loop, (void*) NULL)
 	}
 
 	// set up IMU configuration
@@ -137,6 +140,7 @@ void* printf_loop(void* ptr){
 			printf("\r");
 			printf("%8.4f   |", theta);
 			printf("%8.4f   |", d_u);
+			printf("%c      |", input);
 			
 			fflush(stdout);
 		}
@@ -145,3 +149,27 @@ void* printf_loop(void* ptr){
 	}
 	return NULL;
 } 
+
+void* scanf_loop(void* ptr, char* input){
+	rc_state_t last_rc_state, new_rc_state; // keep track of last state 
+	last_rc_state = rc_get_state();
+	while(rc_get_state()!=EXITING){
+		new_rc_state = rc_get_state();
+		// check if this is the first time since being paused
+		if(new_rc_state==RUNNING && last_rc_state!=RUNNING){
+			printf("\nTaking Input:.\n");
+		}
+		else if(new_rc_state==PAUSED && last_rc_state!=PAUSED){
+			printf("\nPAUSED: press pause again to start.\n");
+		}
+		last_rc_state = new_rc_state;
+		
+		// decide what to print or exit
+		if(new_rc_state == RUNNING){	
+			input = getchar();
+		}
+
+		rc_usleep(1000000 / PRINTF_HZ);
+	}
+	return NULL;
+}

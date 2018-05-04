@@ -15,7 +15,7 @@
 #define GEARBOX 				100.37
 #define ENCODER_RES				48
 #define WHEEL_RADIUS_M			0.021
-#define TRACK_WIDTH_M			0.121
+#define TRACK_WIDTH_M			0.142
 #define V_NOMINAL				7.4
 
 /*

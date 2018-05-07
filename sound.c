@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+
 int main(int argc, char* argv[])
 {
     pid_t pid;
@@ -11,11 +12,11 @@ int main(int argc, char* argv[])
         perror("Fork failed\n");
         exit(1);
     }
-    else if(pid == 0){ //Hér erum við inn í nýja processnum.
-        printf("In child process.\n");  //Þessari línu má sleppa, aðeins til að villuprófa
-        execlp("mpg123", "mpg123", "-q", "./test.mp3", NULL); //mpg123 látinn spila skránna test_mp3
-        printf("Done playing, exiting child process.\n"); //Þessari línu má sleppa, aðeins til að villuprófa
-        return 0;  //Process hættir keyrslu
+    else if(pid == 0){                                          //Hér erum við inn í nýja processnum.
+        printf("In child process.\n");                          //Þessari línu má sleppa, aðeins til að villuprófa
+        execlp("mpg123", "mpg123", "-q", "./test.mp3", NULL);   //mpg123 látinn spila skránna test_mp3
+        printf("Done playing, exiting child process.\n");       //Þessari línu má sleppa, aðeins til að villuprófa
+        return 0;                                               //Process hættir keyrslu
     }
     //Hér erum við inni í upphaflega forritinu.
    

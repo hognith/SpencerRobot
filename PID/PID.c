@@ -5,7 +5,7 @@
 
 void balance_controller();
 void* printf_loop(void* ptr);
-void* scanf_loop(void* ptr, char* input);
+void* scanf_loop(void* ptr);
 
 rc_filter_t D1;
 rc_imu_data_t imu_data;
@@ -13,6 +13,9 @@ rc_imu_data_t imu_data;
 float theta;
 float d_u;
 float setpoint = 0.0;
+int input;
+float turnL = 1.0;
+float turnR = 1.0;
 
 
 int main(){
@@ -42,7 +45,7 @@ int main(){
 		pthread_create(&printf_thread, NULL, printf_loop, (void*) NULL);
 
 		pthread_t scanf_thread;
-		pthread_create(&scanf_thread, NULL, scanf_loop, (void*) NULL)
+		pthread_create(&scanf_thread, NULL, scanf_loop, (void*) NULL);
 	}
 
 	// set up IMU configuration
@@ -101,13 +104,36 @@ void balance_controller(){
 		return;
 	}
 	
+	if(input == 8){
+		setpoint -= 0.002;
+		input = 0;
+	}
+	if(input == 2){
+		setpoint += 0.002;
+		input = 0;
+	}
+	if(input == 5){
+		setpoint = 0.0;
+		turnL = 1.0;
+		turnR = 1.0;
+		input = 0;
+	}
+	if(input == 4){
+		turnL = 0.90;
+		turnR = 1.1;
+	}
+	if(input == 6){
+		turnL = 1.1;
+		turnR = 0.90;
+	}
+
 	float error = setpoint + theta;
 	
 	d_u = rc_march_filter(&D1, error);
 	
 
-	rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * d_u); 
-	rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * d_u);
+	rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * d_u * turnL); 
+	rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * d_u * turnR);
 
 	return;
 }
@@ -128,6 +154,7 @@ void* printf_loop(void* ptr){
 			printf("\nRUNNING: Hold upright to balance.\n");
 			printf("     θ     |");
 			printf("     d_y   |");
+			printf(" Setpoint  |");
 			printf("\n");
 		}
 		else if(new_rc_state==PAUSED && last_rc_state!=PAUSED){
@@ -140,7 +167,7 @@ void* printf_loop(void* ptr){
 			printf("\r");
 			printf("%8.4f   |", theta);
 			printf("%8.4f   |", d_u);
-			printf("%c      |", input);
+			printf("%8.4f   |", setpoint);
 			
 			fflush(stdout);
 		}
@@ -150,14 +177,18 @@ void* printf_loop(void* ptr){
 	return NULL;
 } 
 
-void* scanf_loop(void* ptr, char* input){
+void* scanf_loop(void* ptr){
 	rc_state_t last_rc_state, new_rc_state; // keep track of last state 
 	last_rc_state = rc_get_state();
+	char buf[BUFSIZ];
+	char *p;
 	while(rc_get_state()!=EXITING){
 		new_rc_state = rc_get_state();
 		// check if this is the first time since being paused
+		
 		if(new_rc_state==RUNNING && last_rc_state!=RUNNING){
-			printf("\nTaking Input:.\n");
+			//printf("\nTaking Input:");
+			//input = getchar();
 		}
 		else if(new_rc_state==PAUSED && last_rc_state!=PAUSED){
 			printf("\nPAUSED: press pause again to start.\n");
@@ -165,8 +196,13 @@ void* scanf_loop(void* ptr, char* input){
 		last_rc_state = new_rc_state;
 		
 		// decide what to print or exit
-		if(new_rc_state == RUNNING){	
-			input = getchar();
+		if(new_rc_state == RUNNING){
+			if(fgets(buf, sizeof(buf), stdin) != NULL){
+				if((p = strchr(buf, '\n')) != NULL)
+					*p = '\0';
+			}
+			input = atoi(buf);
+			
 		}
 
 		rc_usleep(1000000 / PRINTF_HZ);

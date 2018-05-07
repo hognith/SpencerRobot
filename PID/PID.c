@@ -8,6 +8,7 @@ void* printf_loop(void* ptr);
 void* scanf_loop(void* ptr);
 
 rc_filter_t D1;
+//rc_filter_t D2;
 rc_imu_data_t imu_data;
 
 float theta;
@@ -29,14 +30,25 @@ int main(){
 	rc_set_led(GREEN,0);
 	rc_set_state(UNINITIALIZED);
 
-	D1=rc_empty_filter();
+	D1 = rc_empty_filter();
 
 	// set up D1 PID controller
 	if(rc_pid_filter(&D1, KP, KI, KD, 4*DT, DT)){
-		fprintf(stderr,"ERROR in rc_balance, failed to make steering controller\n");
+		fprintf(stderr,"ERROR in rc_balance, failed to make imu controller\n");
 		return -1;
 	}
 	rc_enable_saturation(&D1, -STEERING_INPUT_MAX, STEERING_INPUT_MAX);
+
+/*
+	D2 = rc_empty_filter();
+
+	// set up D2 PID controller
+	if(rc_pid_filter(&D2, KP2, KI2, KD2, 4*DT, DT)){
+		fprintf(stderr,"ERROR in rc_balance, failed to make encouder controller\n");
+		return -1;
+	}
+	rc_enable_saturation(&D2, (1 - turnrate_MAX), (1 + turnrate_MAX));
+*/
 
 	// start printf_thread if running from a terminal
 	// if it was started as a background process then don't bother
@@ -127,10 +139,12 @@ void balance_controller(){
 		turnR = 0.90;
 	}
 
-	float error = setpoint + theta;
-	
-	d_u = rc_march_filter(&D1, error);
-	
+	float error1 = setpoint + theta;
+	//turnrate setpoint = 1;
+	//float error2 = 1 - (Left encoder / Right encoder);
+
+	d_u = rc_march_filter(&D1, error1);
+	//d_t = rc_march_filter(&D2, error2);
 
 	rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * d_u * turnL); 
 	rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * d_u * turnR);

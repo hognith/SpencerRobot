@@ -1,9 +1,12 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+<<<<<<< HEAD:sound.c
+=======
 #include <stdio.h>
 #include <stdlib.h>
 
+>>>>>>> 7447efbe2a6821bd76d346f19cdb099eae7acf48:MP3/sound.c
 
 int main(int argc, char* argv[])
 {
@@ -17,11 +20,19 @@ int main(int argc, char* argv[])
         perror("Fork failed\n");
         exit(1);
     }
+<<<<<<< HEAD:sound.c
+    else if(pid == 0){                                          //Hér erum við inn í nýja processnum.
+        printf("In child process.\n");                          //Þessari línu má sleppa, aðeins til að villuprófa
+        execlp("mpg123", "mpg123", "-q", "./test.mp3", NULL);   //mpg123 látinn spila skránna test_mp3
+        printf("Done playing, exiting child process.\n");       //Þessari línu má sleppa, aðeins til að villuprófa
+        return 0;                                               //Process hættir keyrslu
+=======
     else if(pid == 0){ //Hér erum við inn í nýja processnum.
         printf("In child process.\n");  //Þessari línu má sleppa, aðeins til að villuprófa
         execlp("aplay","aplay", "aauuu.wav", NULL); //mpg123 látinn spila skránna test_mp3
         printf("Done playing, exiting child process.\n"); //Þessari línu má sleppa, aðeins til að villuprófa
         return 0;  //Process hættir keyrslu
+>>>>>>> 7447efbe2a6821bd76d346f19cdb099eae7acf48:MP3/sound.c
     }
     */
 

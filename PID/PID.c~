@@ -1,7 +1,6 @@
 #include <rc_usefulincludes.h>
 #include <roboticscape.h>
 
-#include "ultrasonic.h"
 #include "PID.h"
 
 void balance_controller();
@@ -22,7 +21,6 @@ float turnR = 1.0;
 float Lencoder;
 float Rencoder;
 int ultra;
-int state = 0;
 
 int main(){
 
@@ -116,7 +114,6 @@ void balance_controller(){
 	* read sensors and compute the state when either ARMED or DISARMED
 	******************************************************************/
 	// angle theta is positive in the direction of forward tip around X axis
-	
 	theta = imu_data.dmp_TaitBryan[TB_PITCH_X] + cape_mount_angle; 
 
 	/*************************************************************
@@ -144,23 +141,12 @@ void balance_controller(){
 	if(input == 4){
 		turnL = 0.90;
 		turnR = 1.1;
-		input = 0;
 	}
 	if(input == 6){
 		turnL = 1.1;
 		turnR = 0.90;
-		input = 0;
 	}
-	if(input == 9){
-		state = 1;
-		//turnR = 1.5;
-		//turnL = 0.5;
-		input = 0;
-	}
-	if(input == 7){
-		turnL = 2;
-		input = 0;
-	}
+
 	
 	Lencoder = rc_get_encoder_pos(ENCODER_CHANNEL_L);
 	Rencoder = rc_get_encoder_pos(ENCODER_CHANNEL_R);
@@ -171,22 +157,10 @@ void balance_controller(){
 
 	d_u = rc_march_filter(&D1, error1);
 	//d_e = rc_march_filter(&D2, error2);
-	
-	if(state == 0){
-		rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * d_u * turnL); 
-		rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * d_u * turnR);
-	}
-	else if(state == 1){
-		rc_set_encoder_pos(ENCODER_CHANNEL_L, 0);
-		rc_set_encoder_pos(ENCODER_CHANNEL_R, 0);
-		while(Rencoder <= 3000){
-			Lencoder = rc_get_encoder_pos(ENCODER_CHANNEL_L);
-			Rencoder = rc_get_encoder_pos(ENCODER_CHANNEL_R);
-			rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * 0.0);
-			rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * 0.3);
-		}
-		state = 0;
-	}
+
+	rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * d_u * turnL); 
+	rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * d_u * turnR);
+
 	return;
 }
 
@@ -227,7 +201,7 @@ void* printf_loop(void* ptr){
 			printf("%8.4f   |", setpoint);
 			printf("%8.4f   |", Lencoder);
 			printf("%8.4f   |", Rencoder * -1);
-			printf("%d      |",ultra);
+			printf("%8.4f   |",ultra);
 			fflush(stdout);
 		}
 

@@ -31,6 +31,8 @@ float Rencoder;
 int ultra;
 int state = 0;
 int turn_angle = 0;
+int u_close = 0;
+int u_far = 0;
 
 int main(){
 
@@ -333,27 +335,41 @@ void Spencer_State_machine()
 		Backward();
 	}
 */
-	if(ultra > 25)
+	if(u_close < 5)
 	{
 		forward();
+		u_close = 0;
 	}
-	if(ultra < 25)
+	if(u_far >= 5)
 	{
 		stop();
-		Spencer_turn_left();
+		//Spencer_turn_left();
+		u_far = 0;
 	}
 
 }
 void forward()
 {
-	setpoint = -0.03;
+	setpoint = -0.02;
 }
 void backward()
 {
-	setpoint = 0.03;
+	setpoint = 0.02;
 }
 void stop()
 {
-
 	setpoint = 0;
+}
+void ultra_close()
+{
+
+	if(ultra < 25)
+	{
+		u_close++;
+	}
+	if(ultra > 25)
+	{
+		u_far++;
+	}
+
 }

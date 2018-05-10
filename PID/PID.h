@@ -6,7 +6,7 @@
 #define cape_mount_angle 0.005 //0.037
 
 // PID
-#define KP					5.0 //10.0
+#define KP					6.0 //10.0
 #define KI					70.0 //200.0
 #define KD					0.35  //0.4
 #define STEERING_INPUT_MAX  1.0

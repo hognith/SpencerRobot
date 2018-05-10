@@ -346,11 +346,11 @@ void Spencer_State_machine()
 }
 void forward()
 {
-	setpoint = 0.04;
+	setpoint = -0.03;
 }
 void backward()
 {
-	setpoint = -0.04;
+	setpoint = 0.03;
 }
 void stop()
 {

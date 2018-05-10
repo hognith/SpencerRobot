@@ -284,13 +284,13 @@ void Spencer_turn_left(int turn_angle);
 {
 	int tikk = 8 * turn_angle;
 
-	while(Lencoder < tikk)
-	{	
-
-		rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * 1.0);
-		rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_L * 1.0);	
-
-	}
+	rc_set_encoder_pos(ENCODER_CHANNEL_L, 0);
+		while(Lencoder < tikk){
+			
+			Lencoder = rc_get_encoder_pos(ENCODER_CHANNEL_L);
+			rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * 5.0);
+			rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * -5.0);
+		}
 
 }
 

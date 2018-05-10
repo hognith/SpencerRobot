@@ -7,6 +7,7 @@
 void balance_controller();
 void* printf_loop(void* ptr);
 void* scanf_loop(void* ptr);
+void Spencer_fine_tuneing();
 
 rc_filter_t D1;
 //rc_filter_t D2;
@@ -127,40 +128,8 @@ void balance_controller(){
 		return;
 	}
 	
-	if(input == 8){
-		setpoint -= 0.0005;
-		input = 0;
-	}
-	if(input == 2){
-		setpoint += 0.0005;
-		input = 0;
-	}
-	if(input == 5){
-		setpoint = 0.0;
-		turnL = 1.0;
-		turnR = 1.0;
-		input = 0;
-	}
-	if(input == 4){
-		turnL = 0.90;
-		turnR = 1.1;
-		input = 0;
-	}
-	if(input == 6){
-		turnL = 1.1;
-		turnR = 0.90;
-		input = 0;
-	}
-	if(input == 9){
-		state = 1;
-		//turnR = 1.5;
-		//turnL = 0.5;
-		input = 0;
-	}
-	if(input == 7){
-		turnL = 2;
-		input = 0;
-	}
+	Spencer_fine_tuneing();
+
 	
 	Lencoder = rc_get_encoder_pos(ENCODER_CHANNEL_L);
 	Rencoder = rc_get_encoder_pos(ENCODER_CHANNEL_R);
@@ -267,4 +236,43 @@ void* scanf_loop(void* ptr){
 		rc_usleep(1000000 / PRINTF_HZ);
 	}
 	return NULL;
+}
+void Spencer_fine_tuneing()
+{
+	
+	if(input == 8){
+		setpoint -= 0.0005;
+		input = 0;
+	}
+	if(input == 2){
+		setpoint += 0.0005;
+		input = 0;
+	}
+	if(input == 5){
+		setpoint = 0.0;
+		turnL = 1.0;
+		turnR = 1.0;
+		input = 0;
+	}
+	if(input == 4){
+		turnL = 0.90;
+		turnR = 1.1;
+		input = 0;
+	}
+	if(input == 6){
+		turnL = 1.1;
+		turnR = 0.90;
+		input = 0;
+	}
+	if(input == 9){
+		state = 1;
+		//turnR = 1.5;
+		//turnL = 0.5;
+		input = 0;
+	}
+	if(input == 7){
+		turnL = 2;
+		input = 0;
+	}
+
 }

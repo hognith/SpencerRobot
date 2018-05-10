@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     }
     else if(pid == 0){                                          //Hér erum við inn í nýja processnum.
         printf("In child process.\n");                          //Þessari línu má sleppa, aðeins til að villuprófa
-        execlp("mpg123", "mpg123", "-q", "./test.mp3", NULL);   //mpg123 látinn spila skránna test_mp3
+        execlp("mpg123", "mpg123", "-q", "./SuperMario.mp3", NULL);   //mpg123 látinn spila skránna test_mp3
         printf("Done playing, exiting child process.\n");       //Þessari línu má sleppa, aðeins til að villuprófa
         return 0;                                               //Process hættir keyrslu
     }

@@ -3,12 +3,12 @@
 
 #define SAMPLE_RATE_HZ 100	// main filter and control loop speed
 #define DT 0.01			// 1/sample_rate
-#define cape_mount_angle 0.001 //0.037
+#define cape_mount_angle 0.005 //0.037
 
 // PID
-#define KP					7.0 //10.0
-#define KI					75.0 //200.0
-#define KD					0.2  //0.4
+#define KP					5.0 //10.0
+#define KI					70.0 //200.0
+#define KD					0.35  //0.4
 #define STEERING_INPUT_MAX  1.0
 
 // PID encoders

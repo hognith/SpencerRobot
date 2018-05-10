@@ -258,10 +258,19 @@ void Spencer_fine_tuneing()
 	}
 	if(input == 4){
 
+	int a = 0;
+		while(a < 50000)
+		{
 		//Spencer_turn_left(45);
-		turnL = 0.90;
-		turnR = 1.1;
-		input = 0;
+			turnL = 0.4;
+			turnR = -0.4;
+			input = 0;
+               		 rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * turnR);
+			 rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * turnL);
+
+			a++;
+		}
+		input = 5;
 	}
 	if(input == 6){
 		turnL = 1.1;

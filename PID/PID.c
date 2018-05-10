@@ -338,13 +338,13 @@ void Spencer_State_machine()
 	if(u_close < 5)
 	{
 		forward();
-		u_close = 0;
+		//u_close = 0;
 	}
-	if(u_far >= 5)
+	else
 	{
 		stop();
 		//Spencer_turn_left();
-		u_far = 0;
+		//u_far = 0;
 	}
 
 }
@@ -367,9 +367,9 @@ void ultra_close()
 	{
 		u_close++;
 	}
-	if(ultra > 25)
-	{
-		u_far++;
-	}
+	//if(ultra > 25)
+	//{
+	//	u_far++;
+	//}
 
 }

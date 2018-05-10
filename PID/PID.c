@@ -14,6 +14,7 @@ void Spencer_State_machine();
 void forward();
 void backward();
 void stop();
+void ultra_close();
 
 rc_filter_t D1;
 //rc_filter_t D2;
@@ -137,8 +138,8 @@ void balance_controller(){
 		return;
 	}
 	
-	//Spencer_fine_tuneing();
-	Spencer_State_machine();
+	Spencer_fine_tuneing();
+	//Spencer_State_machine();
 
 	
 	Lencoder = rc_get_encoder_pos(ENCODER_CHANNEL_L);
@@ -335,6 +336,7 @@ void Spencer_State_machine()
 		Backward();
 	}
 */
+	ultra_close();
 	if(u_close < 5)
 	{
 		forward();
@@ -363,7 +365,7 @@ void stop()
 void ultra_close()
 {
 
-	if(ultra < 25)
+	if(25 < ultra || ultra < 35)
 	{
 		u_close++;
 	}

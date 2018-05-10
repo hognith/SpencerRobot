@@ -258,10 +258,10 @@ void Spencer_fine_tuneing()
 	}
 	if(input == 4){
 
-		Spencer_turn_left(45);
-		//turnL = 0.90;
-		//turnR = 1.1;
-		//input = 0;
+		//Spencer_turn_left(45);
+		turnL = 0.90;
+		turnR = 1.1;
+		input = 0;
 	}
 	if(input == 6){
 		turnL = 1.1;
@@ -280,7 +280,7 @@ void Spencer_fine_tuneing()
 	}
 
 }
-void Spencer_turn_left(int turn_angle);
+/*void Spencer_turn_left(int turn_angle);
 {
 	int tikk = 8 * turn_angle;
 
@@ -292,5 +292,5 @@ void Spencer_turn_left(int turn_angle);
 			rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * -5.0);
 		}
 
-}
+}*/
 

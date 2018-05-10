@@ -10,6 +10,9 @@ void* scanf_loop(void* ptr);
 void Spencer_fine_tuneing();
 void Spencer_turn_left();
 void Spencer_turn_right();
+void Spencer_State_machine();
+void forward();
+void backward();
 
 rc_filter_t D1;
 //rc_filter_t D2;
@@ -131,7 +134,8 @@ void balance_controller(){
 		return;
 	}
 	
-	Spencer_fine_tuneing();
+	//Spencer_fine_tuneing();
+	Spencer_State_machine();
 
 	
 	Lencoder = rc_get_encoder_pos(ENCODER_CHANNEL_L);
@@ -315,9 +319,34 @@ void Spencer_turn_right()
 
 			a++;
 		}
-
 	
 }
+void Spencer_State_machine()
+{
+/*	if(input = 1)
+	{
+		forward();
+	}
+	if(input = 2)
+	{
+		Backward();
+	}
+*/
+	if(ultra > 25)
+	{
+		forward();
+	}
+	if(ultra < 25)
+	{
+		Spencer_turn_left();
+	}
 
-
-
+}
+void forward()
+{
+	setpoint = 0.06;
+}
+void backward()
+{
+	setpoint = -0.06;
+}

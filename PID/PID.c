@@ -338,7 +338,7 @@ void Spencer_State_machine()
 	if(u_close < 5)
 	{
 		forward();
-		//u_close = 0;
+		u_close = 0;
 	}
 	else
 	{

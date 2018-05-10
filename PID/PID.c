@@ -13,6 +13,7 @@ void Spencer_turn_right();
 void Spencer_State_machine();
 void forward();
 void backward();
+void stop();
 
 rc_filter_t D1;
 //rc_filter_t D2;
@@ -338,15 +339,21 @@ void Spencer_State_machine()
 	}
 	if(ultra < 25)
 	{
+		stop();
 		Spencer_turn_left();
 	}
 
 }
 void forward()
 {
-	setpoint = 0.06;
+	setpoint = 0.04;
 }
 void backward()
 {
-	setpoint = -0.06;
+	setpoint = -0.04;
+}
+void stop()
+{
+
+	setpoint = 0;
 }

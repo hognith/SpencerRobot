@@ -280,11 +280,11 @@ void Spencer_fine_tuneing()
 	}
 
 }
-void Spencer_turn_left(int turn_angle);
+void Spencer_turn_left(int turn_angle)
 {
 	int tikk = 8 * turn_angle;
 
-	while(Lencoder < tikk)
+	while((-1)*Lencoder < tikk)
 	{	
 
 		rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * 1.0);

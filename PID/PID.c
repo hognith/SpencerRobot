@@ -8,7 +8,8 @@ void balance_controller();
 void* printf_loop(void* ptr);
 void* scanf_loop(void* ptr);
 void Spencer_fine_tuneing();
-void Spencer_turn_left(int turn_angle);
+void Spencer_turn_left();
+void Spencer_turn_right();
 
 rc_filter_t D1;
 //rc_filter_t D2;
@@ -259,14 +260,16 @@ void Spencer_fine_tuneing()
 	if(input == 4){
 
 	int a = 0;
+
 		while(a < 50000)
 		{
 		//Spencer_turn_left(45);
 			turnL = 0.4;
 			turnR = -0.4;
 			input = 0;
-               		 rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * turnR);
-			 rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * turnL);
+             
+            rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * turnR);
+			rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * turnL);
 
 			a++;
 		}
@@ -289,19 +292,42 @@ void Spencer_fine_tuneing()
 	}
 
 }
-/*void Spencer_turn_left(int turn_angle);
->>>>>>> 042001ebe0fc4d40210537bb36d1f62b0f667fa0
+void Spencer_turn_left()
 {
-	int tikk = 8 * turn_angle;
+	int a = 0;
 
-	rc_set_encoder_pos(ENCODER_CHANNEL_L, 0);
-	while(Lencoder < tikk){
-			
-			Lencoder = rc_get_encoder_pos(ENCODER_CHANNEL_L);
-			rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * 5.0);
-			rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * -5.0);
-	}
+		while(a < 50000)
+		{
+			turnL = 0.4;
+			turnR = -0.4;
+			input = 0;
+             
+            rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * turnR);
+			rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * turnL);
+
+			a++;
+		}
+
+	
+}
+void Spencer_turn_right()
+{
+	int a = 0;
+
+		while(a < 50000)
+		{
+			turnL = -0.4;
+			turnR = 0.4;
+			input = 0;
+             
+            rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * turnR);
+			rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * turnL);
+
+			a++;
+		}
+
+	
+}
 
 
-}*/
 

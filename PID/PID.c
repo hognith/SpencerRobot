@@ -259,7 +259,7 @@ void Spencer_fine_tuneing()
 	}
 	if(input == 4){
 
-		int dist = get_ultrasonic_value;
+		int dist = get_ultrasonic_value();
 
 		if(dist < 25)
 		{

@@ -8,6 +8,7 @@ void balance_controller();
 void* printf_loop(void* ptr);
 void* scanf_loop(void* ptr);
 void Spencer_fine_tuneing();
+void Spencer_turn_left(int turn_angle);
 
 rc_filter_t D1;
 //rc_filter_t D2;
@@ -24,6 +25,7 @@ float Lencoder;
 float Rencoder;
 int ultra;
 int state = 0;
+int turn_angle = 0;
 
 int main(){
 
@@ -255,9 +257,11 @@ void Spencer_fine_tuneing()
 		input = 0;
 	}
 	if(input == 4){
-		turnL = 0.90;
-		turnR = 1.1;
-		input = 0;
+
+		Spencer_turn_left(45);
+		//turnL = 0.90;
+		//turnR = 1.1;
+		//input = 0;
 	}
 	if(input == 6){
 		turnL = 1.1;
@@ -276,3 +280,17 @@ void Spencer_fine_tuneing()
 	}
 
 }
+void Spencer_turn_left(int turn_angle);
+{
+	int tikk = 8 * turn_angle;
+
+	while(Lencoder < tikk)
+	{	
+
+		rc_set_motor(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * 1.0);
+		rc_set_motor(MOTOR_CHANNEL_R, MOTOR_POLARITY_L * 1.0);	
+
+	}
+
+}
+
